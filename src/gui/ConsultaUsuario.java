@@ -19,7 +19,7 @@ public class ConsultaUsuario extends javax.swing.JFrame {
         lista = dao.ListaUsuario();
         jComboBox1.addItem("Selecione o usuário");
         for(Usuario u: lista){
-            int a = u.getId();
+            Long a = u.getId();
             jComboBox1.addItem(a+" - "+u.getNome());
         }
     } 
@@ -113,11 +113,20 @@ public class ConsultaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        int cod = Integer.parseInt(jTextField1.getText());
+        Usuario usuario = new Usuario();
+        UsuarioDAO dao = new UsuarioDAO();
+        usuario.setId(cod);
+        
+        dao.ExcluirUsuario(usuario);
+        
+        new CadastroUsuario().setVisible(true);
+        dispose();
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**

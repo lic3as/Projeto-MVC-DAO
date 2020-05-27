@@ -6,6 +6,8 @@ import java.sql.*;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UsuarioDAO { 
    private Connection connection;
@@ -37,7 +39,7 @@ public class UsuarioDAO {
                 if(rs != null){
                     while(rs.next()){
                     Usuario u = new Usuario();
-                    u.setId(rs.getInt(1)); 
+                    u.setId(rs.getLong(1)); 
                     u.setNome(rs.getString(2));
                     lista.add(u);
                 }
@@ -49,4 +51,20 @@ public class UsuarioDAO {
                     return null;
                 }
             }
+    public String ExcluirUsuario(Usuario u){
+        String sql = "DELETE FROM usuario WHERE id = ?";
+       try {
+           PreparedStatement stmt = connection.prepareStatement(sql);
+           stmt.setLong(1, u.getId());
+           
+           if(stmt.executeUpdate()>0){
+           return "Excluído com sucesso!";
+           }else{
+               return "Erro ao exluir!";
+           }
+       } catch (SQLException ex) {
+           return "Erro ao excluir.";
+       }
+        
+    }
     }
