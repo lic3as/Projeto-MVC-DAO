@@ -1,7 +1,6 @@
-package factory;
+package Factory;
 
-import java.sql.Connection; 
-import java.sql.SQLException; 
+import java.sql.*;
 
 public class TestaConexao {
     public static void main(String[] args) throws SQLException{

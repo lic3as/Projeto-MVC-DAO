@@ -1,28 +1,32 @@
-package gui;
+package GUI;
 
-import dao.UsuarioDAO;
+import DAO.UsuarioDAO;
+import Modelo.Usuario;
 import java.util.ArrayList;
 import java.util.List;
-import modelo.Usuario;
 
 public class ConsultaUsuario extends javax.swing.JFrame {
 
     public ConsultaUsuario() {
         initComponents();
+        setLocationRelativeTo(this);
         AtualizaCombo();
     }
 
 
     private void AtualizaCombo(){
         UsuarioDAO dao = new UsuarioDAO();
+        
         List<Usuario> lista = new ArrayList<>();
         lista = dao.ListaUsuario();
         jComboBox1.addItem("Selecione o usuário");
+        
         for(Usuario u: lista){
-            Long a = u.getId();
+            int a = u.getId();
             jComboBox1.addItem(a+" - "+u.getNome());
         }
-    } 
+        
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -63,6 +67,11 @@ public class ConsultaUsuario extends javax.swing.JFrame {
         });
 
         jButton2.setText("Sair");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,21 +122,25 @@ public class ConsultaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int cod = Integer.parseInt(jTextField1.getText());
+        int cod =  Integer.parseInt(jTextField1.getText());
+        
         Usuario usuario = new Usuario();
         UsuarioDAO dao = new UsuarioDAO();
         usuario.setId(cod);
-        
         dao.ExcluirUsuario(usuario);
         
         new CadastroUsuario().setVisible(true);
         dispose();
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        new CadastroUsuario().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
