@@ -1,8 +1,12 @@
 package dao;
+
 import factory.ConnectionFactory;
 import modelo.Usuario;
 import java.sql.*;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.List;
+
 public class UsuarioDAO { 
    private Connection connection;
    public UsuarioDAO(){ 
@@ -24,5 +28,25 @@ public class UsuarioDAO {
         } 
         
     } 
-    
-}
+    public List<Usuario> ListaUsuario(){
+        String sql = "SELECT * FROM usuario ORDER BY nome";
+        List<Usuario> lista = new ArrayList<>();
+            try{
+                PreparedStatement stmt = connection.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery();
+                if(rs != null){
+                    while(rs.next()){
+                    Usuario u = new Usuario();
+                    u.setId(rs.getInt(1)); 
+                    u.setNome(rs.getString(2));
+                    lista.add(u);
+                }
+                    return lista;
+                }else{
+                    return null;
+                }   
+                }catch(Exception ex){
+                    return null;
+                }
+            }
+    }
